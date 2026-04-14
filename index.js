@@ -17,7 +17,7 @@ app.post('/', async (req, res) => {
   const resp = await fetch('https://api.stripe.com/v1/terminal/connection_tokens', {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer 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',
+     'Authorization': 'Bearer ' + process.env.STRIPE_SECRET_KEY,
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   });
