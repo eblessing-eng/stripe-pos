@@ -7,298 +7,69 @@
 <script src="https://js.stripe.com/terminal/v1/"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap');
-
   :root {
-    --bg: #0f0e0d;
-    --surface: #1a1917;
-    --border: #2e2c28;
-    --accent: #e8c97a;
-    --accent-dim: #c9a84c;
-    --text: #f0ece3;
-    --muted: #6b6660;
-    --green: #5cb87a;
-    --red: #e06060;
-    --radius: 12px;
+    --bg: #0f0e0d; --surface: #1a1917; --border: #2e2c28;
+    --accent: #e8c97a; --accent-dim: #c9a84c; --text: #f0ece3;
+    --muted: #6b6660; --green: #5cb87a; --red: #e06060; --radius: 12px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 24px 16px 48px;
-  }
-
-  header {
-    width: 100%;
-    max-width: 480px;
-    margin-bottom: 32px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .logo {
-    font-family: 'Fraunces', serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: -0.5px;
-  }
-
-  .tagline {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    width: 100%;
-    max-width: 480px;
-    margin-bottom: 16px;
-  }
-
-  .card-title {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 16px;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-family: 'DM Mono', monospace;
-    font-size: 14px;
-    font-weight: 500;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    padding: 14px 20px;
-    transition: all 0.15s;
-    letter-spacing: 0.5px;
-    width: 100%;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #0f0e0d;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 48px; }
+  header { width: 100%; max-width: 480px; margin-bottom: 32px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .logo { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: var(--accent); }
+  .tagline { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; width: 100%; max-width: 480px; margin-bottom: 16px; }
+  .card-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; border: none; border-radius: 8px; cursor: pointer; padding: 14px 20px; transition: all 0.15s; width: 100%; }
+  .btn-primary { background: var(--accent); color: #0f0e0d; }
   .btn-primary:hover { background: var(--accent-dim); }
-  .btn-primary:active { transform: scale(0.98); }
   .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .btn-ghost {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-  }
+  .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-  .product {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 16px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 12px;
-  }
-
-  .product-info .product-name {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .product-info .product-price {
-    font-size: 12px;
-    color: var(--accent);
-    margin-top: 2px;
-  }
-
-  .qty-control {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .qty-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-size: 22px;
-    font-weight: 300;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-    line-height: 1;
-  }
-
+  .product { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; }
+  .product-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; }
+  .product-price { font-size: 12px; color: var(--accent); margin-top: 2px; }
+  .qty-control { display: flex; align-items: center; gap: 10px; }
+  .qty-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
   .qty-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  .qty-display {
-    font-family: 'Fraunces', serif;
-    font-size: 28px;
-    font-weight: 300;
-    color: var(--text);
-    min-width: 32px;
-    text-align: center;
-  }
-
-  .total-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 16px 0 20px;
-    border-top: 1px solid var(--border);
-    margin-top: 4px;
-  }
-
+  .qty-display { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 300; min-width: 32px; text-align: center; }
+  .total-row { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0 20px; border-top: 1px solid var(--border); margin-top: 4px; }
   .total-label { font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
-
-  .total-amount {
-    font-family: 'Fraunces', serif;
-    font-size: 40px;
-    font-weight: 600;
-    color: var(--accent);
-  }
-
-  .status-box {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px;
-    font-size: 13px;
-    color: var(--muted);
-    min-height: 48px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 14px;
-    transition: all 0.3s;
-  }
-
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--muted);
-    flex-shrink: 0;
-    transition: background 0.3s;
-  }
-
+  .total-amount { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 600; color: var(--accent); }
+  .status-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-size: 13px; min-height: 48px; display: flex; align-items: center; gap: 10px; margin-top: 14px; transition: all 0.3s; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
   .status-box.connected .status-dot { background: var(--green); }
   .status-box.error .status-dot { background: var(--red); }
-  .status-box.active .status-dot {
-    background: var(--accent);
-    animation: pulse 1s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
+  .status-box.active .status-dot { background: var(--accent); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
   .status-text { color: var(--text); }
-
-  .reader-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    transition: border-color 0.15s;
-  }
-
+  .reader-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s; }
   .reader-item:hover { border-color: var(--accent); }
   .reader-item.selected { border-color: var(--green); }
-
   .reader-name { font-size: 14px; }
   .reader-id { font-size: 10px; color: var(--muted); margin-top: 2px; }
   .reader-status { font-size: 11px; color: var(--green); letter-spacing: 1px; text-transform: uppercase; }
-
-  .success-overlay {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 32px 24px;
-    text-align: center;
-  }
-
-  .success-icon {
-    font-size: 56px;
-    animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  @keyframes pop {
-    0% { transform: scale(0); }
-    100% { transform: scale(1); }
-  }
-
-  .success-title {
-    font-family: 'Fraunces', serif;
-    font-size: 28px;
-    color: var(--green);
-  }
-
+  .success-overlay { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 32px 24px; text-align: center; }
+  .success-icon { font-size: 56px; animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+  .success-title { font-family: 'Fraunces', serif; font-size: 28px; color: var(--green); }
   .success-amount { font-size: 14px; color: var(--muted); }
-
-  /* Welcome screen */
-  .welcome-icon { font-size: 48px; text-align: center; margin-bottom: 12px; }
-  .welcome-title { font-family: 'Fraunces', serif; font-size: 22px; color: var(--text); text-align: center; margin-bottom: 8px; }
-  .welcome-sub { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 24px; line-height: 1.6; }
-
   #welcome-panel { display: block; }
   #pos-panel { display: none; }
   #success-panel { display: none; }
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">⬡ Student POS</div>
   <div class="tagline">St. Johns · In-Person Payments</div>
 </header>
 
-<!-- WELCOME PANEL -->
 <div id="welcome-panel">
   <div class="card">
-    <div class="welcome-icon">💳</div>
-    <div class="welcome-title">Ready to take payment?</div>
-    <div class="welcome-sub">Make sure the WisePOS E reader is on and connected to WiFi, then tap the button below.</div>
-    <button class="btn btn-primary" id="connect-btn" onclick="initTerminal()">
-      Connect to Reader
-    </button>
+    <div style="font-size:48px;text-align:center;margin-bottom:12px;">💳</div>
+    <div style="font-family:'Fraunces',serif;font-size:22px;text-align:center;margin-bottom:8px;">Ready to take payment?</div>
+    <div style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:24px;line-height:1.6;">Make sure the WisePOS E reader is on and connected to WiFi, then tap the button below.</div>
+    <button class="btn btn-primary" id="connect-btn" onclick="initTerminal()">Connect to Reader</button>
     <div class="status-box" id="setup-status">
       <div class="status-dot"></div>
       <span class="status-text">Tap above to get started</span>
@@ -306,52 +77,35 @@
   </div>
 </div>
 
-<!-- POS PANEL -->
 <div id="pos-panel">
   <div class="card">
     <div class="card-title">🖥 Select Reader</div>
-    <div id="readers-list">
-      <div style="color:var(--muted);font-size:12px;">Discovering readers…</div>
-    </div>
+    <div id="readers-list"><div style="color:var(--muted);font-size:12px;">Discovering readers…</div></div>
     <button class="btn btn-ghost" style="margin-top:12px;font-size:12px;" onclick="discoverReaders()">↺ Refresh Readers</button>
   </div>
-
   <div class="card" id="checkout-card" style="display:none;">
     <div class="card-title">🛒 What are they buying?</div>
-
     <div class="product">
-      <div class="product-info">
-        <div class="product-name">Food &amp; Drink</div>
-        <div class="product-price">$1.00 each</div>
-      </div>
+      <div><div class="product-name">Food &amp; Drink</div><div class="product-price">$1.00 each</div></div>
       <div class="qty-control">
-        <button class="qty-btn" onclick="changeQty('food', -1)">−</button>
+        <button class="qty-btn" onclick="changeQty('food',-1)">−</button>
         <div class="qty-display" id="qty-food">0</div>
-        <button class="qty-btn" onclick="changeQty('food', 1)">+</button>
+        <button class="qty-btn" onclick="changeQty('food',1)">+</button>
       </div>
     </div>
-
     <div class="product">
-      <div class="product-info">
-        <div class="product-name">Used Uniforms</div>
-        <div class="product-price">$5.00 each</div>
-      </div>
+      <div><div class="product-name">Used Uniforms</div><div class="product-price">$5.00 each</div></div>
       <div class="qty-control">
-        <button class="qty-btn" onclick="changeQty('uniform', -1)">−</button>
+        <button class="qty-btn" onclick="changeQty('uniform',-1)">−</button>
         <div class="qty-display" id="qty-uniform">0</div>
-        <button class="qty-btn" onclick="changeQty('uniform', 1)">+</button>
+        <button class="qty-btn" onclick="changeQty('uniform',1)">+</button>
       </div>
     </div>
-
     <div class="total-row">
       <span class="total-label">Total</span>
       <span class="total-amount" id="total-display">$0.00</span>
     </div>
-
-    <button class="btn btn-primary" id="charge-btn" onclick="collectPayment()">
-      Charge Reader
-    </button>
-
+    <button class="btn btn-primary" id="charge-btn" onclick="collectPayment()">Charge Reader</button>
     <div class="status-box" id="payment-status">
       <div class="status-dot"></div>
       <span class="status-text">Ready to charge</span>
@@ -359,7 +113,6 @@
   </div>
 </div>
 
-<!-- SUCCESS PANEL -->
 <div id="success-panel">
   <div class="card">
     <div class="success-overlay">
@@ -372,24 +125,15 @@
 </div>
 
 <script>
-  // Pre-filled credentials — no setup needed!
-  const STRIPE_KEY = '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';
-const TOKEN_ENDPOINT = window.location.origin;
-
-  let terminal = null;
-  let selectedReader = null;
-
-  const ITEMS = {
-    food:    { price: 100, label: 'Food & Drink' },
-    uniform: { price: 500, label: 'Used Uniforms' }
-  };
-
+  const SERVER = window.location.origin;
+  let terminal = null, selectedReader = null;
+  const ITEMS = { food: { price: 100, label: 'Food & Drink' }, uniform: { price: 500, label: 'Used Uniforms' } };
   const qtys = { food: 0, uniform: 0 };
 
   function updateTotal() {
     let total = 0;
-    for (const key in qtys) total += qtys[key] * ITEMS[key].price;
-    document.getElementById('total-display').textContent = '$' + (total / 100).toFixed(2);
+    for (const k in qtys) total += qtys[k] * ITEMS[k].price;
+    document.getElementById('total-display').textContent = '$' + (total/100).toFixed(2);
   }
 
   function changeQty(item, delta) {
@@ -398,151 +142,98 @@ const TOKEN_ENDPOINT = window.location.origin;
     updateTotal();
   }
 
-  function setStatus(elId, msg, state) {
-    state = state || '';
-    const box = document.getElementById(elId);
-    if (!box) return;
-    box.className = 'status-box ' + state;
+  function setStatus(id, msg, state) {
+    const box = document.getElementById(id);
+    box.className = 'status-box ' + (state||'');
     box.querySelector('.status-text').textContent = msg;
   }
 
   async function initTerminal() {
-    setStatus('setup-status', 'Connecting to Stripe Terminal…', 'active');
+    setStatus('setup-status', 'Connecting…', 'active');
     document.getElementById('connect-btn').disabled = true;
-
     try {
       terminal = StripeTerminal.create({
-        onFetchConnectionToken: async function() {
-          const resp = await fetch(TOKEN_ENDPOINT, { method: 'POST' });
-          const data = await resp.json();
-          if (data.error) throw new Error(data.error.message);
-          return data.secret;
+        onFetchConnectionToken: async () => {
+          const r = await fetch(SERVER + '/token', { method: 'POST' });
+          const d = await r.json();
+          if (d.error) throw new Error(d.error.message);
+          return d.secret;
         },
-        onUnexpectedReaderDisconnect: function() {
-          setStatus('payment-status', 'Reader disconnected! Please refresh the page.', 'error');
-        }
+        onUnexpectedReaderDisconnect: () => setStatus('payment-status', 'Reader disconnected! Please refresh.', 'error')
       });
-
       setStatus('setup-status', 'Connected! Finding readers…', 'connected');
       document.getElementById('welcome-panel').style.display = 'none';
       document.getElementById('pos-panel').style.display = 'block';
       discoverReaders();
-    } catch (err) {
-      setStatus('setup-status', 'Error: ' + err.message + ' — Please refresh and try again.', 'error');
+    } catch(err) {
+      setStatus('setup-status', 'Error: ' + err.message, 'error');
       document.getElementById('connect-btn').disabled = false;
     }
   }
 
   async function discoverReaders() {
     document.getElementById('readers-list').innerHTML = '<div style="color:var(--muted);font-size:12px;">Looking for readers…</div>';
-    try {
-      const result = await terminal.discoverReaders({ simulated: false });
-      if (result.error) {
-        document.getElementById('readers-list').innerHTML = '<div style="color:var(--red);font-size:12px;">Error: ' + result.error.message + '</div>';
-        return;
-      }
-      const readers = result.discoveredReaders;
-      if (!readers.length) {
-        document.getElementById('readers-list').innerHTML = '<div style="color:var(--muted);font-size:13px;">No readers found. Make sure the WisePOS E is on and connected to WiFi, then tap Refresh.</div>';
-        return;
-      }
-      document.getElementById('readers-list').innerHTML = '';
-      readers.forEach(function(r) {
-        const el = document.createElement('div');
-        el.className = 'reader-item';
-        el.innerHTML = '<div><div class="reader-name">' + (r.label || 'Terminal') + '</div><div class="reader-id">' + r.id + '</div></div><div class="reader-status">' + r.status + '</div>';
-        el.onclick = function() { selectReader(r, el); };
-        document.getElementById('readers-list').appendChild(el);
-      });
-    } catch (err) {
-      document.getElementById('readers-list').innerHTML = '<div style="color:var(--red);font-size:12px;">' + err.message + '</div>';
-    }
+    const result = await terminal.discoverReaders({ simulated: false });
+    if (result.error) { document.getElementById('readers-list').innerHTML = '<div style="color:var(--red);font-size:12px;">' + result.error.message + '</div>'; return; }
+    const readers = result.discoveredReaders;
+    if (!readers.length) { document.getElementById('readers-list').innerHTML = '<div style="color:var(--muted);font-size:13px;">No readers found. Make sure WisePOS E is on and on WiFi, then tap Refresh.</div>'; return; }
+    document.getElementById('readers-list').innerHTML = '';
+    readers.forEach(r => {
+      const el = document.createElement('div');
+      el.className = 'reader-item';
+      el.innerHTML = '<div><div class="reader-name">' + (r.label||'Terminal') + '</div><div class="reader-id">' + r.id + '</div></div><div class="reader-status">' + r.status + '</div>';
+      el.onclick = () => selectReader(r, el);
+      document.getElementById('readers-list').appendChild(el);
+    });
   }
 
   async function selectReader(reader, el) {
-    document.querySelectorAll('.reader-item').forEach(function(i) { i.classList.remove('selected'); });
+    document.querySelectorAll('.reader-item').forEach(i => i.classList.remove('selected'));
     el.classList.add('selected');
     const result = await terminal.connectReader(reader);
-    if (result.error) {
-      alert('Could not connect to reader: ' + result.error.message);
-      el.classList.remove('selected');
-      return;
-    }
+    if (result.error) { alert('Could not connect: ' + result.error.message); el.classList.remove('selected'); return; }
     selectedReader = result.reader;
     document.getElementById('checkout-card').style.display = 'block';
-    setStatus('payment-status', 'Reader connected! Add items above then tap Charge.', 'connected');
+    setStatus('payment-status', 'Reader connected! Add items then tap Charge.', 'connected');
   }
 
   async function collectPayment() {
-    if (!selectedReader) {
-      setStatus('payment-status', 'Please select a reader first.', 'error');
-      return;
-    }
-
+    if (!selectedReader) { setStatus('payment-status', 'Select a reader first.', 'error'); return; }
     let totalCents = 0;
     const descParts = [];
-    for (const key in qtys) {
-      if (qtys[key] > 0) {
-        totalCents += qtys[key] * ITEMS[key].price;
-        descParts.push(ITEMS[key].label + ' x' + qtys[key]);
-      }
-    }
-
-    if (totalCents === 0) {
-      setStatus('payment-status', 'Please add at least one item first.', 'error');
-      return;
-    }
-
+    for (const k in qtys) { if (qtys[k] > 0) { totalCents += qtys[k] * ITEMS[k].price; descParts.push(ITEMS[k].label + ' x' + qtys[k]); } }
+    if (totalCents === 0) { setStatus('payment-status', 'Please add at least one item.', 'error'); return; }
     document.getElementById('charge-btn').disabled = true;
     setStatus('payment-status', 'Creating payment…', 'active');
-
     try {
-      const params = new URLSearchParams();
-      params.append('amount', totalCents);
-      params.append('currency', 'usd');
-      params.append('payment_method_types[]', 'card_present');
-      params.append('capture_method', 'automatic');
-      params.append('description', descParts.join(', '));
-
-      const piResp = await fetch('https://api.stripe.com/v1/payment_intents', {
+      const piResp = await fetch(SERVER + '/charge', {
         method: 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + STRIPE_KEY,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: params.toString()
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: totalCents, description: descParts.join(', ') })
       });
       const pi = await piResp.json();
       if (pi.error) throw new Error(pi.error.message);
-
-      setStatus('payment-status', 'Ask student to tap or insert card on the reader…', 'active');
+      setStatus('payment-status', 'Ask student to tap or insert card…', 'active');
       const collectResult = await terminal.collectPaymentMethod(pi.client_secret);
       if (collectResult.error) throw new Error(collectResult.error.message);
-
-      setStatus('payment-status', 'Processing payment…', 'active');
+      setStatus('payment-status', 'Processing…', 'active');
       const confirmResult = await terminal.processPayment(collectResult.paymentIntent);
       if (confirmResult.error) throw new Error(confirmResult.error.message);
-
-      const amt = '$' + (totalCents / 100).toFixed(2);
-      document.getElementById('success-amount').textContent = amt + ' — ' + descParts.join(', ');
+      document.getElementById('success-amount').textContent = '$' + (totalCents/100).toFixed(2) + ' — ' + descParts.join(', ');
       document.getElementById('pos-panel').style.display = 'none';
       document.getElementById('success-panel').style.display = 'block';
-
-    } catch (err) {
+    } catch(err) {
       setStatus('payment-status', 'Error: ' + err.message, 'error');
-      terminal.cancelCollectPaymentMethod().catch(function() {});
+      terminal.cancelCollectPaymentMethod().catch(()=>{});
     } finally {
       document.getElementById('charge-btn').disabled = false;
     }
   }
 
   function resetForNextSale() {
-    for (const key in qtys) {
-      qtys[key] = 0;
-      document.getElementById('qty-' + key).textContent = '0';
-    }
+    for (const k in qtys) { qtys[k] = 0; document.getElementById('qty-' + k).textContent = '0'; }
     updateTotal();
-    setStatus('payment-status', 'Reader connected! Add items above then tap Charge.', 'connected');
+    setStatus('payment-status', 'Reader connected! Add items then tap Charge.', 'connected');
     document.getElementById('success-panel').style.display = 'none';
     document.getElementById('pos-panel').style.display = 'block';
   }
